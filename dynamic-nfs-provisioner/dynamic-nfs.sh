@@ -5,7 +5,10 @@ helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs
 
 helm install nfs-storage nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \
     --set nfs.server=nfs.cmdcenter.local \
-    --set nfs.path=/exported/path
+    --set nfs.path=/K8sVolumes/olvm/ubsrv \
+    -n nfsstorage
+
+kubectl create ns nfsstorage
 
 # Set Storage Class to Default
 kubectl patch storageclass nfs-client -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
